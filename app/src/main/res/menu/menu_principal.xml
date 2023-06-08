@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Produtos"
+        android:id="@+id/idMenuProdutos"
+        >
+    </item>
+    <item
+        android:title="Clientes"
+        android:id="@+id/idMenuClientes"
+        >
+    </item>
+    <item
+        android:title="Vendedores"
+        android:id="@+id/idMenuVendedores"
+        >
+    </item>
+    <item
+        android:title="Configuração"
+        android:id="@+id/idMenuConfiguracao"
+        >
+    </item>
+</menu>
