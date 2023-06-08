@@ -13,10 +13,11 @@
         android:theme="@style/Theme.App_final"
         tools:targetApi="31">
         <activity
+            android:name=".ProdutosActivity"
+            android:exported="false" />
+        <activity
             android:name=".ConfiguracaoActivity"
-            android:exported="false"
-
-            />
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

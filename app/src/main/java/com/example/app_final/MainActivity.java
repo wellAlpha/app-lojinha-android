@@ -26,10 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.idMenuConfiguracao) {
             Intent intent = new Intent(MainActivity.this, ConfiguracaoActivity.class);
-
-
-
-            Toast.makeText(this, "Conf", Toast.LENGTH_SHORT).show();
             startActivity(intent);
             return true;
         } else if (id == R.id.idMenuClientes) {
@@ -37,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         else if (id == R.id.idMenuProdutos) {
-            Toast.makeText(this, "Produtos", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, ProdutosActivity.class);
+            startActivity(intent);
             return true;
         }
         else if (id == R.id.idMenuVendedores) {
