@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         else if (id == R.id.idMenuProdutos) {
-            Intent intent = new Intent(MainActivity.this, ProdutosActivity.class);
+            Intent intent = new Intent(MainActivity.this, ProdutoActivity.class);
             startActivity(intent);
             return true;
         }
