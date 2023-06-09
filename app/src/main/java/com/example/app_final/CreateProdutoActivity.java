@@ -9,13 +9,14 @@ import android.widget.EditText;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class FormProdutoActivity extends AppCompatActivity {
+public class CreateProdutoActivity extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     EditText nome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_produto);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /* Captura componentes */
         floatingActionButton = findViewById(R.id.btnCProduto);

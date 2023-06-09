@@ -11,6 +11,8 @@ import android.database.sqlite.SQLiteStatement;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -42,6 +44,7 @@ public class ProdutoActivity extends AppCompatActivity {
 
         list.setAdapter(adapter);
 
+        /*  */
         launcherCriarProduto = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -55,7 +58,24 @@ public class ProdutoActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Object itemSelecionado = parent.getItemAtPosition(position);
+
+                if (itemSelecionado instanceof Produto) {
+                    Produto produto = (Produto) itemSelecionado;
+
+                    deleteProduto(produto.getId());
+                    listarProdutos();
+                    adapter.notifyDataSetChanged();
+                }
+                return false;
+            }
+        });
     }
+
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_crud, menu);
@@ -71,7 +91,7 @@ public class ProdutoActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         } else if (id == R.id.idMenuCriacao) {
-            Intent intent = new Intent(this, FormProdutoActivity.class);
+            Intent intent = new Intent(this, CreateProdutoActivity.class);
             launcherCriarProduto.launch(intent);
             return true;
         }
@@ -109,6 +129,21 @@ public class ProdutoActivity extends AppCompatActivity {
             stml.bindString(1, nome);
 
             stml.executeInsert();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            bd.close();
+        }
+    }
+    public void deleteProduto (Integer id) {
+        try {
+            bd = openOrCreateDatabase("produtos", MODE_PRIVATE, null);
+            String sql = "DELETE FROM produtos WHERE id= ? ;";
+            SQLiteStatement stml = bd.compileStatement(sql);
+
+            stml.bindLong(1, id);
+
+            stml.executeUpdateDelete();
         } catch (Exception e){
             e.printStackTrace();
         } finally {
