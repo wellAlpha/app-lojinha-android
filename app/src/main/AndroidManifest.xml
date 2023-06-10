@@ -16,6 +16,9 @@
             android:name=".CreateProdutoActivity"
             android:exported="false" />
         <activity
+            android:name=".CreateVendedorActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreateClienteActivity"
             android:exported="false" />
         <activity
@@ -23,6 +26,9 @@
             android:exported="false" />
         <activity
             android:name=".ClienteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VendedorActivity"
             android:exported="false" />
         <activity
             android:name=".ConfiguracaoActivity"

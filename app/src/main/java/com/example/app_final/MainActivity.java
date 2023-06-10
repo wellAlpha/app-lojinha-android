@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -39,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         else if (id == R.id.idMenuVendedores) {
-            Toast.makeText(this, "Vendedores", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, VendedorActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
