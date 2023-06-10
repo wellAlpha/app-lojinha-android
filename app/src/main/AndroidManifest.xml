@@ -16,7 +16,13 @@
             android:name=".CreateProdutoActivity"
             android:exported="false" />
         <activity
+            android:name=".CreateClienteActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProdutoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ClienteActivity"
             android:exported="false" />
         <activity
             android:name=".ConfiguracaoActivity"

@@ -1,27 +1,27 @@
 package com.example.app_final;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class CreateProdutoActivity extends AppCompatActivity {
+public class CreateClienteActivity extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     EditText nome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_produto);
+        setContentView(R.layout.activity_form_cliente);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /* Captura componentes */
-        floatingActionButton = findViewById(R.id.btnCProduto);
-        nome = findViewById(R.id.nomeCriacaoProduto);
+        floatingActionButton = findViewById(R.id.btnCCliente);
+        nome = findViewById(R.id.nomeCriacaoCliente);
 
         /* Evento que captura o click no botão de salvar */
         floatingActionButton.setOnClickListener(new View.OnClickListener() {

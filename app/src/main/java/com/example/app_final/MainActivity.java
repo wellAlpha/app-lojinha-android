@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         } else if (id == R.id.idMenuClientes) {
-            Toast.makeText(this, "Clientes", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, ClienteActivity.class);
+            startActivity(intent);
             return true;
         }
         else if (id == R.id.idMenuProdutos) {

@@ -1,9 +1,5 @@
 package com.example.app_final;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,44 +13,49 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.app_final.models.Cliente;
 import com.example.app_final.models.Produto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProdutoActivity extends AppCompatActivity {
+public class ClienteActivity extends AppCompatActivity {
     private SQLiteDatabase bd;
     private ListView list;
     private ArrayAdapter adapter;
-    private ActivityResultLauncher<Intent> launcherCriarProduto;
-    List<Produto> produtos = new ArrayList<>();
+    private ActivityResultLauncher<Intent> launcherCriarCliente;
+    List<Cliente> clientes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_produtos);
+        setContentView(R.layout.activity_clientes);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         list = findViewById(R.id.list);
 
         criarOuAbrirBancoDeDados();
 
-        listarProdutos();
+        listarClientes();
 
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, produtos);
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, clientes);
 
         list.setAdapter(adapter);
 
         /*  */
-        launcherCriarProduto = registerForActivityResult(
+        launcherCriarCliente = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
-                        String nomeProduto = data.getStringExtra("nome");
-                        criarProduto(nomeProduto);
-                        listarProdutos();
+                        String nomeCliente = data.getStringExtra("nome");
+                        criarCliente(nomeCliente);
+                        listarClientes();
                         adapter.notifyDataSetChanged();
-                        Toast.makeText(this, "Produto adicionado com sucesso.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Cliente adicionado com sucesso.", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -64,11 +65,11 @@ public class ProdutoActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Object itemSelecionado = parent.getItemAtPosition(position);
 
-                if (itemSelecionado instanceof Produto) {
-                    Produto produto = (Produto) itemSelecionado;
+                if (itemSelecionado instanceof Cliente) {
+                    Cliente cliente = (Cliente) itemSelecionado;
 
-                    deleteProduto(produto.getId());
-                    listarProdutos();
+                    deleteCliente(cliente.getId());
+                    listarClientes();
                     adapter.notifyDataSetChanged();
                 }
                 return false;
@@ -87,11 +88,12 @@ public class ProdutoActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
+            // Chamar a função de voltar à tela anterior
             onBackPressed();
             return true;
         } else if (id == R.id.idMenuCriacao) {
-            Intent intent = new Intent(this, CreateProdutoActivity.class);
-            launcherCriarProduto.launch(intent);
+            Intent intent = new Intent(this, CreateClienteActivity.class);
+            launcherCriarCliente.launch(intent);
             return true;
         }
 
@@ -100,17 +102,17 @@ public class ProdutoActivity extends AppCompatActivity {
 
 
 
-    public void listarProdutos () {
+    public void listarClientes () {
         try {
-            produtos.clear();
-            bd = openOrCreateDatabase("produtos", MODE_PRIVATE, null);
-            Cursor cursor = bd.rawQuery("SELECT * FROM produtos;", null);
+            clientes.clear();
+            bd = openOrCreateDatabase("clientes", MODE_PRIVATE, null);
+            Cursor cursor = bd.rawQuery("SELECT * FROM clientes;", null);
 
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
                 String nome = cursor.getString(cursor.getColumnIndexOrThrow("nome"));
                 System.out.println(id + "-" + nome);
-                produtos.add(new Produto(id, nome));
+                clientes.add(new Cliente(id, nome));
             }
         } catch (Exception e){
             e.printStackTrace();
@@ -119,10 +121,10 @@ public class ProdutoActivity extends AppCompatActivity {
         }
     }
 
-    public void criarProduto (String nome) {
+    public void criarCliente (String nome) {
         try {
-            bd = openOrCreateDatabase("produtos", MODE_PRIVATE, null);
-            String sql = "INSERT INTO produtos (nome) VALUES (?);";
+            bd = openOrCreateDatabase("clientes", MODE_PRIVATE, null);
+            String sql = "INSERT INTO clientes (nome) VALUES (?);";
             SQLiteStatement stml = bd.compileStatement(sql);
 
             stml.bindString(1, nome);
@@ -134,10 +136,10 @@ public class ProdutoActivity extends AppCompatActivity {
             bd.close();
         }
     }
-    public void deleteProduto (Integer id) {
+    public void deleteCliente (Integer id) {
         try {
-            bd = openOrCreateDatabase("produtos", MODE_PRIVATE, null);
-            String sql = "DELETE FROM produtos WHERE id= ? ;";
+            bd = openOrCreateDatabase("clientes", MODE_PRIVATE, null);
+            String sql = "DELETE FROM clientes WHERE id= ? ;";
             SQLiteStatement stml = bd.compileStatement(sql);
 
             stml.bindLong(1, id);
@@ -151,9 +153,9 @@ public class ProdutoActivity extends AppCompatActivity {
     }
     public void criarOuAbrirBancoDeDados () {
         try {
-            bd = openOrCreateDatabase("produtos", MODE_PRIVATE, null);
+            bd = openOrCreateDatabase("clientes", MODE_PRIVATE, null);
 
-            bd.execSQL("CREATE TABLE IF NOT EXISTS produtos (" +
+            bd.execSQL("CREATE TABLE IF NOT EXISTS clientes (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "nome VARCHAR NOT NULL)");
 
