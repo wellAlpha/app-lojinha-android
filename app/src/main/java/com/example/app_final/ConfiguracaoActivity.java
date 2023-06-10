@@ -27,7 +27,7 @@ public class ConfiguracaoActivity extends AppCompatActivity {
 
         List<String> colorList = new ArrayList<>();
 
-        colorList.add("Red");
+        colorList.add("White");
         colorList.add("Green");
         colorList.add("Blue");
 
@@ -46,6 +46,8 @@ public class ConfiguracaoActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("selectedColor", selectedColor);
                 editor.apply();
+
+
             }
 
             @Override
